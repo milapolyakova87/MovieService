@@ -1,0 +1,51 @@
+.navbar {
+    padding: 0.75rem 1rem;
+}
+
+.btn {
+    margin: 0 0.25rem;
+}
+
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.navbar-light .navbar-nav .nav-link,
+.navbar-nav .nav-link {
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.dropdown-toggle .bi-key,
+.btn-link .bi-key,
+.btn-link:focus .bi-key,
+.btn-link:hover .bi-key {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.bi {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.btn-link {
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+}
+.btn-link:focus,
+.btn-link:hover {
+    text-decoration: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
