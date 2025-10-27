@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="ru">
+<head th:fragment="common-header">
+    <meta charset="UTF-8">
+    <title>Избранное</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-custom {
+            background-color: #cce6ff;
+            border-bottom: none !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #2c3e50 !important;
+        }
+        .btn-link {
+            text-decoration: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            border: none !important;
+            background: none !important;
+            padding: 0 !important;
+            color: #2c3e50 !important;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+        .btn-link:focus,
+        .btn-link:hover {
+            text-decoration: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            color: #3498db !important;
+        }
+        .dropdown-toggle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+        .dropdown-menu {
+            font-family: 'Montserrat', sans-serif;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown-item {
+            font-weight: 500;
+            color: #2c3e50 !important;
+        }
+        .dropdown-item:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: #3498db !important;
+        }
+        .card-img-top {
+            object-fit: cover;
+            height: 350px;
+            width: 100%;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .card {
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background-color: #ffffff;
+            color: #2c3e50;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .card-body {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            padding: 1.25rem;
+        }
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.75rem;
+        }
+        .card-text {
+            overflow-y: auto;
+            flex-grow: 1;
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+        .text-muted {
+            color: #888 !important;
+            font-size: 0.85rem;
+        }
+        .card-footer {
+            flex-shrink: 0;
+            background-color: transparent;
+            border-top: 1px solid #eee;
+            padding: 1rem;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #3498db;
+        }
+        .rating {
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+        .form-control {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            width: 60px;
+        }
+        .btn {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+        }
+        .btn-primary:hover, .btn-danger:hover {
+            opacity: 0.9;
+        }
+        .share-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .share-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        .share-btn i {
+            margin-right: 0.5rem;
+        }
+        .copy-link-btn.success i {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom" role="navigation" aria-label="Основная навигация">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Movie Service</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Переключить навигацию">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto d-flex align-items-center">
+                <li class="nav-item dropdown">
+                    <button type="button"
+                            class="btn btn-link dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            aria-label="Открыть меню аккаунта">
+                        <i class="bi bi-person"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" th:href="@{/films}"><i class="bi bi-film me-2"></i>Искать фильмы</a></li>
+                        <li sec:authorize="isAuthenticated()">
+                            <form th:action="@{/logout}" method="post" class="m-0">
+                                <button type="submit" class="dropdown-item w-100 text-start">
+                                    <i class="bi bi-box-arrow-right me-2"></i>Выйти
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main class="container mt-4">
+    <!-- Карточки фильмов -->
+    <div class="row justify-content-center row-cols-1 row-cols-md-3 g-4">
+        <div th:each="userMovie : ${userMovies}" class="col">
+            <div class="card h-100 shadow-sm mx-auto" style="width: 18rem; min-height: 450px;">
+                <img th:src="'https://image.tmdb.org/t/p/original' + ${userMovie.movie.posterUrl}"
+                     th:alt="${userMovie.movie.title}"
+                     class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${userMovie.movie.title}">Название фильма</h5>
+                    <p class="card-text" th:text="${userMovie.movie.description}">Краткое описание фильма.</p>
+                    <p class="card-text text-muted" th:text="${'Дата просмотра: ' + userMovie.viewDate}">Дата просмотра</p>
+                    <div class="rating mt-3">
+                        <span th:if="${userMovie.rating == null}" class="text-muted">Нет рейтинга</span>
+                        <form th:action="@{/api/favorites/{id}/rating(id=${userMovie.id})}" method="post" class="mt-2">
+                            <input type="hidden" name="_method" value="put">
+                            <input type="number" name="rating" min="1" max="5" th:value="${userMovie.rating} ?: 5"
+                                   class="form-control d-inline w-auto me-2" />
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="bi bi-star-fill me-1"></i> Сохранить
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-footer text-center mt-auto">
+                    <form th:action="@{/api/favorites/{id}(id=${userMovie.id})}" method="post" class="mt-2">
+                        <input type="hidden" name="_method" value="delete">
+                        <button type="submit" class="btn btn-danger btn-sm w-100">
+                            <i class="bi bi-trash me-1"></i> Удалить
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Пагинация -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            <nav aria-label="Пагинация" class="d-flex justify-content-center">
+                <ul class="pagination">
+                    <!-- Кнопка "Назад" -->
+                    <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/favorites(page=${currentPage - 1}, size=${size})}"
+                           th:if="${currentPage > 0}"
+                           aria-label="Предыдущая страница">
+                            Назад
+                        </a>
+                        <span class="page-link" th:if="${currentPage == 0}" aria-disabled="true">Назад</span>
+                    </li>
+
+                    <!-- Номера страниц -->
+                    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                        class="page-item"
+                        th:classappend="${i == currentPage} ? 'active'">
+                        <a class="page-link"
+                           th:href="@{/favorites(page=${i}, size=${size})}"
+                           th:text="${i + 1}">1</a>
+                    </li>
+
+                    <!-- Кнопка "Вперёд" -->
+                    <li class="page-item" th:classappend="${currentPage >= totalPages - 1} ? 'disabled'">
+                        <a class="page-link"
+                           th:href="@{/favorites(page=${currentPage + 1}, size=${size})}"
+                           th:if="${currentPage < totalPages - 1}"
+                           aria-label="Следующая страница">
+                            Вперёд
+                        </a>
+                        <span class="page-link" th:if="${currentPage >= totalPages - 1}" aria-disabled="true">Вперёд</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Статус -->
+            <p class="text-muted text-center mt-3">
+                Показано <strong th:text="${userMovies.size()}"></strong>
+                из <strong th:text="${totalItems}"></strong>
+                фильмов
+            </p>
+        </div>
+    </div>
+    <div class="share-actions mt-4">
+        <form th:action="@{/share}" method="post">
+            <button type="submit" class="btn btn-primary share-btn">
+                <i class="bi bi-share"></i> Поделиться списком
+            </button>
+        </form>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
